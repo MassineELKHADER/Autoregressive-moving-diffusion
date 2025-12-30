@@ -1,51 +1,55 @@
 import torch
+import copy
 from utils.io_utils import instantiate_from_config
 
 
-def build_dataloader(config, args=None):
-    batch_size = config['dataloader']['batch_size']
-    jud = config['dataloader']['shuffle']
-    config['dataloader']['train_dataset']['params']['output_dir'] = args.save_dir
-    dataset = instantiate_from_config(config['dataloader']['train_dataset'])
+def _build_loader(dataset_cfg, batch_size, shuffle, drop_last):
+    dataset = instantiate_from_config(dataset_cfg)
+    loader = torch.utils.data.DataLoader(
+        dataset,
+        batch_size=batch_size,
+        shuffle=shuffle,
+        num_workers=0,
+        pin_memory=True,
+        drop_last=drop_last,
+    )
+    return loader, dataset
 
-    dataloader = torch.utils.data.DataLoader(dataset,
-                                             batch_size=batch_size,
-                                             shuffle=jud,
-                                             num_workers=0,
-                                             pin_memory=True,
-                                             sampler=None,
-                                             drop_last=jud)
+def build_dataloader(config, args):
+    cfg = copy.deepcopy(config['dataloader'])
 
-    dataload_info = {
-        'dataloader': dataloader,
-        'dataset': dataset
-    }
+    cfg['train_dataset']['params']['output_dir'] = args.save_dir
 
-    return dataload_info
+    loader, dataset = _build_loader(
+        cfg['train_dataset'],
+        batch_size=cfg['batch_size'],
+        shuffle=cfg['shuffle'],
+        drop_last=cfg['shuffle'],
+    )
 
-def build_dataloader_cond(config, args=None):
-    batch_size = config['dataloader']['sample_size']
-    config['dataloader']['test_dataset']['params']['output_dir'] = args.save_dir
+    return {'dataloader': loader, 'dataset': dataset}
+
+
+def build_dataloader_cond(config, args):
+    cfg = copy.deepcopy(config['dataloader'])
+
+    cfg['test_dataset']['params']['output_dir'] = args.save_dir
+
     if args.mode == 'infill':
-        config['dataloader']['test_dataset']['params']['missing_ratio'] = args.missing_ratio
+        cfg['test_dataset']['params']['missing_ratio'] = args.missing_ratio
     elif args.mode == 'predict':
-        config['dataloader']['test_dataset']['params']['predict_length'] = args.pred_len
-    test_dataset = instantiate_from_config(config['dataloader']['test_dataset'])
+        cfg['test_dataset']['params']['predict_length'] = args.pred_len
+    else:
+        raise ValueError(f"Unknown mode: {args.mode}")
 
-    dataloader = torch.utils.data.DataLoader(test_dataset,
-                                             batch_size=batch_size,
-                                             shuffle=False,
-                                             num_workers=0,
-                                             pin_memory=True,
-                                             sampler=None,
-                                             drop_last=False)
+    loader, dataset = _build_loader(
+        cfg['test_dataset'],
+        batch_size=cfg['sample_size'],
+        shuffle=False,
+        drop_last=False,
+    )
 
-    dataload_info = {
-        'dataloader': dataloader,
-        'dataset': test_dataset
-    }
-
-    return dataload_info
+    return {'dataloader': loader, 'dataset': dataset}
 
 
 if __name__ == '__main__':
