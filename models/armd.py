@@ -6,8 +6,8 @@ from torch import nn
 from einops import reduce
 from tqdm.auto import tqdm
 from functools import partial
-from Models.autoregressive_diffusion.linear import Linear
-from Models.autoregressive_diffusion.model_utils import default, identity, extract
+from models.linear import Linear
+from models.model_utils import default, identity, extract
 
 
 # gaussian diffusion trainer class
