@@ -7,8 +7,8 @@ from scipy import io
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 from torch.utils.data import Dataset
-from Models.autoregressive_diffusion.model_utils import normalize_to_neg_one_to_one, unnormalize_to_zero_to_one
-from Utils.masking_utils import noise_mask
+from model.model_utils import normalize_to_neg_one_to_one, unnormalize_to_zero_to_one
+from utils.masking_utils import noise_mask
 
 
 class CustomDataset(Dataset):

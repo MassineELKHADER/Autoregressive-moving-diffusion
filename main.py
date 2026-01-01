@@ -1,88 +1,101 @@
 import os
-import torch
-import numpy as np
 import random
 import argparse
-
 import warnings
-warnings.filterwarnings("ignore")
+
+import numpy as np
+import torch
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+
+import wandb
 
 from trainer.trainer import Trainer
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error
-from torch.utils.data import Dataset, DataLoader
-from gluonts.dataset.repository.datasets import get_dataset
-from gluonts.dataset.multivariate_grouper import MultivariateGrouper
 from utils.io_utils import load_yaml_config, instantiate_from_config
-from model.model_utils import normalize_to_neg_one_to_one, unnormalize_to_zero_to_one
-from data.build_dataloader import build_dataloader, build_dataloader_cond
+from data.build_dataloader import build_dataloader, build_val_dataloader, build_dataloader_cond
 
-seq_len = 96
+warnings.filterwarnings("ignore")
 
-def set_seed(seed):
-    """
-    Set the random seed for reproducibility.
-    
-    Parameters:
-    - seed (int): The seed value.
-    """
-    # Set the seed for Python's built-in random module
+SEQ_LEN = 96
+
+
+def set_seed(seed: int):
     random.seed(seed)
-    
-    # Set the seed for NumPy
     np.random.seed(seed)
-    
-    # Set the seed for PyTorch
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
-    
-    # Additional steps for CuDNN backend
-    os.environ['PYTHONHASHSEED'] = str(seed)
+
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description="Process configuration and directories.")
-    parser.add_argument('--config_path', type=str, required=True,
-                        help='Path to the configuration file.')
-    parser.add_argument('--save_dir', type=str, default='./forecasting_exp',
-                        help='Directory to save experiment results.')
-    parser.add_argument('--gpu', type=int, default=0,
-                        help='Specify which GPU to use.')
-    
-    ## I added these here for wandb logging
-    parser.add_argument('--use_wandb', action='store_true')
-    parser.add_argument('--wandb_project', type=str, default='forecasting with moving diffusion')
-    parser.add_argument('--wandb_name', type=str, default=None, help='Run name.')
-    parser.add_argument('--wandb_tags', type=str, nargs='*', default=[], help='Run tags.')
-    
-    args = parser.parse_args()
-    return args
+    p = argparse.ArgumentParser()
+    p.add_argument("--config_path", type=str, required=True)
+    p.add_argument("--save_dir", type=str, default="./forecasting_exp")
+    p.add_argument("--gpu", type=int, default=0)
+    p.add_argument("--seed", type=int, default=2023)
+
+    # wandb
+    p.add_argument("--use_wandb", action="store_true")
+    p.add_argument("--wandb_project", type=str, default="forecasting-with-moving-diffusion")
+    p.add_argument("--wandb_name", type=str, default=None)
+    p.add_argument("--wandb_tags", type=str, nargs="*", default=[])
+
+    return p.parse_args()
+
 
 def run(args):
-    set_seed(2023)
-    configs = load_yaml_config(args.config_path)
-    device = torch.device(f'cuda:{args.gpu}' if torch.cuda.is_available() else 'cpu')
+    os.makedirs(args.save_dir, exist_ok=True)
+    set_seed(args.seed)
 
-    model = instantiate_from_config(configs['model']).to(device)
+    configs = load_yaml_config(args.config_path)
+
+    device = torch.device(f"cuda:{args.gpu}" if torch.cuda.is_available() else "cpu")
+    model = instantiate_from_config(configs["model"]).to(device)
     model.fast_sampling = True
 
+    # init wandb AFTER configs exist
+    wandb_run = None
+    if args.use_wandb:
+        wandb_run = wandb.init(
+            project=args.wandb_project,
+            name=args.wandb_name,
+            tags=args.wandb_tags,
+            config=configs,
+        )
+
+    # train
     train_info = build_dataloader(configs, args)
-    trainer = Trainer(config=configs, args=args, model=model, dataloader={'dataloader': train_info['dataloader']})
+
+    # val 
+    val_info = build_val_dataloader(configs, args)
+
+    trainer = Trainer(
+        config=configs,
+        args=args,
+        model=model,
+        dataloader={"dataloader": train_info["dataloader"]},
+        val_dataloader=val_info["dataloader"],
+        wandb_run=wandb_run,
+    )
     trainer.train()
 
-    args.mode = 'predict'
-    args.pred_len = seq_len
+    # eval / predict
+    args.mode = "predict"
+    args.pred_len = SEQ_LEN
+
     test_info = build_dataloader_cond(configs, args)
+    feat_dim = test_info["dataset"].samples.shape[-1]
+    shape = [args.pred_len, feat_dim]
 
-    sample, real_ = trainer.sample_forecast(test_info['dataloader'], shape=[args.pred_len, test_info['dataset'].samples.shape[-1]])
+    # use trainer eval (logs to wandb + returns metrics)
+    metrics = trainer.evaluate_forecast(test_info["dataloader"], shape=shape)
+    print(metrics)
 
-    mse = mean_squared_error(sample.reshape(-1), real_.reshape(-1))
-    mae = mean_absolute_error(sample.reshape(-1), real_.reshape(-1))
-    print(mse, mae)
+    if wandb_run is not None:
+        wandb_run.finish()
 
 
 if __name__ == "__main__":
     args = parse_arguments()
-    os.makedirs(args.save_dir, exist_ok=True)
     run(args)

@@ -9,7 +9,7 @@ model:
     beta_schedule: 'cosine'
     w_grad: True
 
-solver:
+trainer:
   base_lr: 1.0e-3
   max_epochs: 2000
   results_folder: ./Checkpoints_etth
@@ -20,7 +20,7 @@ solver:
     update_interval: 10
   
   scheduler:
-    target: engine.lr_sch.ReduceLROnPlateauWithWarmup
+    target: trainer.lr_sch.ReduceLROnPlateauWithWarmup
     params:
       factor: 0.5
       patience: 4000
@@ -33,23 +33,35 @@ solver:
 
 dataloader:
   train_dataset:
-    target: Utils.Data_utils.real_datasets.CustomDataset
+    target: utils.data_utils.real_datasets.CustomDataset
     params:
       name: etth
-      proportion: 0.8  # Set to rate < 1 if training conditional generation
-      data_root: ./Data/datasets/ETTh1.csv
+      proportion: 0.7  # Set to rate < 1 if training conditional generation
+      data_root: ./data/datasets/ETTh1.csv
       window: 192  # seq_length
       save2npy: True
       neg_one_to_one: True
       seed: 2024
       period: train
 
+  val_dataset:
+    target: utils.data_utils.real_datasets.CustomDataset
+    params:
+      name: etth
+      proportion: 0.1
+      data_root: ./data/datasets/ETTh1.csv
+      window: 192
+      save2npy: True
+      neg_one_to_one: True
+      seed: 2024
+      period: val
+
   test_dataset:
-    target: Utils.Data_utils.real_datasets.CustomDataset
+    target: utils.data_utils.real_datasets.CustomDataset
     params:
       name: etth
       proportion: 0.2  # rate
-      data_root: ./Data/datasets/ETTh1.csv
+      data_root: ./data/datasets/ETTh1.csv
       window: 192  # seq_length
       save2npy: True
       neg_one_to_one: True

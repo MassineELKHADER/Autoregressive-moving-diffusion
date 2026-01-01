@@ -29,6 +29,22 @@ def build_dataloader(config, args):
 
     return {'dataloader': loader, 'dataset': dataset}
 
+def build_val_dataloader(config, args):
+    cfg = copy.deepcopy(config)
+
+    cfg["dataloader"]["train_dataset"] = cfg["dataloader"]["val_dataset"]
+
+    dataset = instantiate_from_config(cfg["dataloader"]["train_dataset"])
+    loader = torch.utils.data.DataLoader(
+        dataset,
+        batch_size=cfg["dataloader"]["batch_size"],
+        shuffle=False,
+        num_workers=0,
+        pin_memory=True,
+        drop_last=False,
+    )
+
+    return {"dataloader": loader, "dataset": dataset}
 
 def build_dataloader_cond(config, args):
     cfg = copy.deepcopy(config['dataloader'])
