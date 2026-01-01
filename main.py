@@ -69,6 +69,7 @@ def run(args):
 
     # val 
     val_info = build_val_dataloader(configs, args)
+    assert len(val_info["dataset"]) > 0, "Validation set is empty."
 
     trainer = Trainer(
         config=configs,

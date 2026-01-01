@@ -17,7 +17,7 @@ class CustomDataset(Dataset):
         name,
         data_root, 
         window=64, 
-        proportion=0.8, 
+        proportion=0.7, 
         save2npy=True, 
         neg_one_to_one=True,
         seed=123,
@@ -30,60 +30,74 @@ class CustomDataset(Dataset):
         mean_mask_length=3
     ):
         super(CustomDataset, self).__init__()
-        assert period in ['train', 'test'], 'period must be train or test.'
-        if period == 'train':
-            assert ~(predict_length is not None or missing_ratio is not None), ''
+        assert period in ['train', 'val', 'test'], "period must be train/val/test."
+        if period in ["train", "val"]:
+            assert not (predict_length is not None or missing_ratio is not None)
         self.name, self.pred_len, self.missing_ratio = name, predict_length, missing_ratio
         self.style, self.distribution, self.mean_mask_length = style, distribution, mean_mask_length
-        self.rawdata, self.scaler = self.read_data(data_root, self.name)
+        self.rawdata = self.read_data(data_root, self.name)
+
         self.dir = os.path.join(output_dir, 'samples')
         os.makedirs(self.dir, exist_ok=True)
 
         self.window, self.period = window, period
         self.len, self.var_num = self.rawdata.shape[0], self.rawdata.shape[-1]
-        self.sample_num_total = max(self.len - self.window + 1, 0)
+
         self.save2npy = save2npy
         #self.auto_norm = neg_one_to_one
         self.auto_norm = False
 
+        train_ratio = proportion
+        val_ratio = 0.1
+        train_end, val_end = self.split_time_indices(self.len, train_ratio=train_ratio, val_ratio=val_ratio)
+        
+        self.scaler = StandardScaler().fit(self.rawdata[:train_end])
+        # ---- normalize whole series with train scaler ----
         self.data = self.__normalize(self.rawdata)
-        train, inference = self.__getsamples(self.data, proportion, seed)
+        # ---- build windows safely per split ----
+        if period == "train":
+            start, end = 0, train_end
+        elif period == "val":
+            start, end = train_end, val_end
+        else:  # test
+            start, end = val_end, self.len
 
-        self.samples = train if period == 'train' else inference
-        if period == 'test':
-            if missing_ratio is not None:
-                self.masking = self.mask_data(seed)
-            elif predict_length is not None:
-                masks = np.ones(self.samples.shape)
-                masks[:, -predict_length:, :] = 0
-                self.masking = masks.astype(bool)
-            else:
-                raise NotImplementedError()
+        self.samples = self.build_windows(self.data, start, end, self.window)
         self.sample_num = self.samples.shape[0]
 
-    def __getsamples(self, data, proportion, seed):
-        x = np.zeros((self.sample_num_total, self.window, self.var_num))
-        for i in range(self.sample_num_total):
-            start = i
-            end = i + self.window
-            x[i, :, :] = data[start:end, :]
-
-        train_data, test_data = self.divide(x, proportion, seed)
-
-        if self.save2npy:
-            if 1 - proportion > 0:
-                np.save(os.path.join(self.dir, f"{self.name}_ground_truth_{self.window}_test.npy"), self.unnormalize(test_data))
-            np.save(os.path.join(self.dir, f"{self.name}_ground_truth_{self.window}_train.npy"), self.unnormalize(train_data))
-            if self.auto_norm:
-                if 1 - proportion > 0:
-                    np.save(os.path.join(self.dir, f"{self.name}_norm_truth_{self.window}_test.npy"), unnormalize_to_zero_to_one(test_data))
-                np.save(os.path.join(self.dir, f"{self.name}_norm_truth_{self.window}_train.npy"), unnormalize_to_zero_to_one(train_data))
+        if self.period == "test":
+            if self.missing_ratio is not None:
+                self.masking = self.mask_data(seed)
+            elif self.pred_len is not None:
+                masks = np.ones(self.samples.shape, dtype=bool)
+                masks[:, -self.pred_len:, :] = False
+                self.masking = masks
             else:
-                if 1 - proportion > 0:
-                    np.save(os.path.join(self.dir, f"{self.name}_norm_truth_{self.window}_test.npy"), test_data)
-                np.save(os.path.join(self.dir, f"{self.name}_norm_truth_{self.window}_train.npy"), train_data)
+                raise ValueError("For period='test', you must set missing_ratio or predict_length.")
 
-        return train_data, test_data
+    # def __getsamples(self, data, proportion, seed):
+    #     x = np.zeros((self.sample_num_total, self.window, self.var_num))
+    #     for i in range(self.sample_num_total):
+    #         start = i
+    #         end = i + self.window
+    #         x[i, :, :] = data[start:end, :]
+
+    #     train_data, test_data = self.divide(x, proportion, seed)
+
+    #     if self.save2npy:
+    #         if 1 - proportion > 0:
+    #             np.save(os.path.join(self.dir, f"{self.name}_ground_truth_{self.window}_test.npy"), self.unnormalize(test_data))
+    #         np.save(os.path.join(self.dir, f"{self.name}_ground_truth_{self.window}_train.npy"), self.unnormalize(train_data))
+    #         if self.auto_norm:
+    #             if 1 - proportion > 0:
+    #                 np.save(os.path.join(self.dir, f"{self.name}_norm_truth_{self.window}_test.npy"), unnormalize_to_zero_to_one(test_data))
+    #             np.save(os.path.join(self.dir, f"{self.name}_norm_truth_{self.window}_train.npy"), unnormalize_to_zero_to_one(train_data))
+    #         else:
+    #             if 1 - proportion > 0:
+    #                 np.save(os.path.join(self.dir, f"{self.name}_norm_truth_{self.window}_test.npy"), test_data)
+    #             np.save(os.path.join(self.dir, f"{self.name}_norm_truth_{self.window}_train.npy"), train_data)
+
+    #     return train_data, test_data
 
     def normalize(self, sq):
         d = sq.reshape(-1, self.var_num)
@@ -108,38 +122,55 @@ class CustomDataset(Dataset):
         x = data
         return self.scaler.inverse_transform(x)
     
-    @staticmethod
-    def divide(data, ratio, seed=2023):
-        size = data.shape[0]
-        # Store the state of the RNG to restore later.
-        st0 = np.random.get_state()
-        np.random.seed(seed)
+    # @staticmethod
+    # def divide(data, ratio, seed=2023):
+    #     size = data.shape[0]
+    #     # Store the state of the RNG to restore later.
+    #     st0 = np.random.get_state()
+    #     np.random.seed(seed)
 
-        regular_train_num = int(np.ceil(size * ratio))
-        #id_rdm = np.random.permutation(size)
-        id_rdm = np.arange(size)
-        regular_train_id = id_rdm[:regular_train_num]
-        irregular_train_id = id_rdm[regular_train_num:]
+    #     regular_train_num = int(np.ceil(size * ratio))
+    #     #id_rdm = np.random.permutation(size)
+    #     id_rdm = np.arange(size)
+    #     regular_train_id = id_rdm[:regular_train_num]
+    #     irregular_train_id = id_rdm[regular_train_num:]
 
-        regular_data = data[regular_train_id, :]
-        irregular_data = data[irregular_train_id, :]
+    #     regular_data = data[regular_train_id, :]
+    #     irregular_data = data[irregular_train_id, :]
 
-        # Restore RNG.
-        np.random.set_state(st0)
-        return regular_data, irregular_data
+    #     # Restore RNG.
+    #     np.random.set_state(st0)
+    #     return regular_data, irregular_data
 
     @staticmethod
     def read_data(filepath, name=''):
-        """Reads a single .csv
-        """
         df = pd.read_csv(filepath, header=0)
         if name == 'etth':
             df.drop(df.columns[0], axis=1, inplace=True)
-        data = df.values
-        #scaler = MinMaxScaler()
-        scaler = StandardScaler()
-        scaler = scaler.fit(data)
-        return data, scaler
+        data = df.values.astype(np.float32)
+        return data
+    
+    @staticmethod
+    def split_time_indices(n, train_ratio=0.7, val_ratio=0.1):
+        train_end = int(n * train_ratio)
+        val_end = int(n * (train_ratio + val_ratio))
+        return train_end, val_end
+
+    @staticmethod
+    def build_windows(data, start_idx, end_idx, window):
+        # data is (T, D)
+        # we build windows fully contained in [start_idx, end_idx)
+        n = end_idx - start_idx
+        num = max(n - window + 1, 0)
+        x = np.zeros((num, window, data.shape[1]), dtype=np.float32)
+
+        for i in range(num):
+            s = start_idx + i
+            e = s + window
+            x[i] = data[s:e]
+
+        return x
+
     
     def mask_data(self, seed=2023):
         masks = np.ones_like(self.samples)
@@ -188,3 +219,4 @@ class fMRIDataset(CustomDataset):
         scaler = MinMaxScaler()
         scaler = scaler.fit(data)
         return data, scaler
+
