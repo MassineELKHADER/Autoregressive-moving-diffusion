@@ -40,7 +40,7 @@ def build_dataloader_cond(config, args):
     elif args.mode == 'predict':
         cfg['test_dataset']['params']['predict_length'] = args.pred_len
     else:
-        raise ValueError(f"Unknown mode: {args.mode}")
+        raise ValueError(f"Unknown mode for args: {args.mode}")
 
     loader, dataset = _build_loader(
         cfg['test_dataset'],
