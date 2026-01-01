@@ -223,6 +223,8 @@ class ARMD(nn.Module):
             return F.l1_loss
         elif self.loss_type == 'l2':
             return F.mse_loss
+        elif self.loss_type == 'huber':
+            return F.smooth_l1_loss
         else:
             raise ValueError(f'invalid loss type {self.loss_type}')
 
