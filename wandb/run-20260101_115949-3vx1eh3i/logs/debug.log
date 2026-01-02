@@ -1,0 +1,35 @@
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_setup.py:_flush():76] Current SDK version is 0.17.3
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_setup.py:_flush():76] Configure stats pid to 51680
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_setup.py:_flush():76] Loading settings from C:\Users\pcc\.config\wandb\settings
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_setup.py:_flush():76] Loading settings from C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\settings
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'main.py', 'program_abspath': 'C:\\Users\\pcc\\Desktop\\CS_1A\\3A\\MVA\\Deep_learning\\Autoregressive_diffusion\\main.py', 'program': 'C:\\Users\\pcc\\Desktop\\CS_1A\\3A\\MVA\\Deep_learning\\Autoregressive_diffusion\\main.py'}
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_setup.py:_flush():76] Applying login settings: {}
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_init.py:_log_setup():520] Logging user logs to C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\run-20260101_115949-3vx1eh3i\logs\debug.log
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_init.py:_log_setup():521] Logging internal logs to C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\run-20260101_115949-3vx1eh3i\logs\debug-internal.log
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_init.py:init():560] calling init triggers
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_init.py:init():567] wandb.init called with sweep_config: {}
+config: {'model': {'target': 'model.armd.ARMD', 'params': {'seq_length': 96, 'feature_size': 7, 'timesteps': 96, 'sampling_timesteps': 1, 'loss_type': 'l1', 'beta_schedule': 'cosine', 'w_grad': True}}, 'trainer': {'base_lr': 0.001, 'max_epochs': 2000, 'results_folder': './Checkpoints_etth', 'gradient_accumulate_every': 2, 'save_cycle': 1800, 'ema': {'decay': 0.995, 'update_interval': 10}, 'scheduler': {'target': 'trainer.lr_sch.ReduceLROnPlateauWithWarmup', 'params': {'factor': 0.5, 'patience': 4000, 'min_lr': 1e-05, 'threshold': 0.1, 'threshold_mode': 'rel', 'warmup_lr': 0.0008, 'warmup': 500, 'verbose': False}}}, 'dataloader': {'train_dataset': {'target': 'utils.data_utils.real_datasets.CustomDataset', 'params': {'name': 'etth', 'proportion': 0.7, 'data_root': './data/datasets/ETTh1.csv', 'window': 192, 'save2npy': True, 'neg_one_to_one': True, 'seed': 2024, 'period': 'train'}}, 'val_dataset': {'target': 'utils.data_utils.real_datasets.CustomDataset', 'params': {'name': 'etth', 'proportion': 0.1, 'data_root': './data/datasets/ETTh1.csv', 'window': 192, 'save2npy': True, 'neg_one_to_one': True, 'seed': 2024, 'period': 'val'}}, 'test_dataset': {'target': 'utils.data_utils.real_datasets.CustomDataset', 'params': {'name': 'etth', 'proportion': 0.2, 'data_root': './data/datasets/ETTh1.csv', 'window': 192, 'save2npy': True, 'neg_one_to_one': True, 'seed': 2024, 'period': 'test', 'style': 'separate', 'distribution': 'geometric'}, 'coefficient': 0.01, 'step_size': 0.05, 'sampling_steps': 200}, 'batch_size': 128, 'sample_size': 256, 'shuffle': True}}
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_init.py:init():610] starting backend
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_init.py:init():614] setting up manager
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn, using: spawn
+2026-01-01 11:59:49,195 INFO    MainThread:51680 [wandb_init.py:init():622] backend started and connected
+2026-01-01 11:59:49,211 INFO    MainThread:51680 [wandb_init.py:init():711] updated telemetry
+2026-01-01 11:59:49,300 INFO    MainThread:51680 [wandb_init.py:init():744] communicating run to backend with 90.0 second timeout
+2026-01-01 11:59:49,830 INFO    MainThread:51680 [wandb_run.py:_on_init():2402] communicating current version
+2026-01-01 11:59:50,091 INFO    MainThread:51680 [wandb_run.py:_on_init():2411] got version response upgrade_message: "wandb version 0.23.1 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2026-01-01 11:59:50,107 INFO    MainThread:51680 [wandb_init.py:init():795] starting run threads in backend
+2026-01-01 11:59:50,733 INFO    MainThread:51680 [wandb_run.py:_console_start():2380] atexit reg
+2026-01-01 11:59:50,733 INFO    MainThread:51680 [wandb_run.py:_redirect():2235] redirect: wrap_raw
+2026-01-01 11:59:50,733 INFO    MainThread:51680 [wandb_run.py:_redirect():2300] Wrapping output streams.
+2026-01-01 11:59:50,733 INFO    MainThread:51680 [wandb_run.py:_redirect():2325] Redirects installed.
+2026-01-01 11:59:50,739 INFO    MainThread:51680 [wandb_init.py:init():838] run started, returning control to user process
+2026-01-01 12:00:40,419 INFO    MainThread:51680 [wandb_run.py:_finish():2109] finishing run mek-nyu/forecasting-with-moving-diffusion/3vx1eh3i
+2026-01-01 12:00:40,419 INFO    MainThread:51680 [wandb_run.py:_atexit_cleanup():2349] got exitcode: 0
+2026-01-01 12:00:40,419 INFO    MainThread:51680 [wandb_run.py:_restore():2332] restore
+2026-01-01 12:00:40,419 INFO    MainThread:51680 [wandb_run.py:_restore():2338] restore done
+2026-01-01 12:00:45,230 INFO    MainThread:51680 [wandb_run.py:_footer_history_summary_info():3991] rendering history
+2026-01-01 12:00:45,230 INFO    MainThread:51680 [wandb_run.py:_footer_history_summary_info():4023] rendering summary
+2026-01-01 12:00:45,230 INFO    MainThread:51680 [wandb_run.py:_footer_sync_info():3950] logging synced files

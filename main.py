@@ -92,6 +92,7 @@ def run(args):
     # use trainer eval (logs to wandb + returns metrics)
     metrics = trainer.evaluate_forecast(test_info["dataloader"], shape=shape)
     print(metrics)
+    print("model.loss_type : ", model.loss_type)
 
     if wandb_run is not None:
         wandb_run.finish()

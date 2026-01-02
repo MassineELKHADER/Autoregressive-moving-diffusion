@@ -1,0 +1,112 @@
+wandb_version: 1
+
+model:
+  desc: null
+  value:
+    target: model.armd.ARMD
+    params:
+      seq_length: 96
+      feature_size: 7
+      timesteps: 96
+      sampling_timesteps: 1
+      loss_type: l1
+      beta_schedule: cosine
+      w_grad: true
+trainer:
+  desc: null
+  value:
+    base_lr: 0.001
+    max_epochs: 2000
+    results_folder: ./Checkpoints_etth
+    gradient_accumulate_every: 2
+    save_cycle: 1800
+    ema:
+      decay: 0.995
+      update_interval: 10
+    scheduler:
+      target: trainer.lr_sch.ReduceLROnPlateauWithWarmup
+      params:
+        factor: 0.5
+        patience: 4000
+        min_lr: 1.0e-05
+        threshold: 0.1
+        threshold_mode: rel
+        warmup_lr: 0.0008
+        warmup: 500
+        verbose: false
+dataloader:
+  desc: null
+  value:
+    train_dataset:
+      target: utils.data_utils.real_datasets.CustomDataset
+      params:
+        name: etth
+        proportion: 0.7
+        data_root: ./data/datasets/ETTh1.csv
+        window: 192
+        save2npy: true
+        neg_one_to_one: true
+        seed: 2024
+        period: train
+    val_dataset:
+      target: utils.data_utils.real_datasets.CustomDataset
+      params:
+        name: etth
+        proportion: 0.1
+        data_root: ./data/datasets/ETTh1.csv
+        window: 192
+        save2npy: true
+        neg_one_to_one: true
+        seed: 2024
+        period: val
+    test_dataset:
+      target: utils.data_utils.real_datasets.CustomDataset
+      params:
+        name: etth
+        proportion: 0.2
+        data_root: ./data/datasets/ETTh1.csv
+        window: 192
+        save2npy: true
+        neg_one_to_one: true
+        seed: 2024
+        period: test
+        style: separate
+        distribution: geometric
+      coefficient: 0.01
+      step_size: 0.05
+      sampling_steps: 200
+    batch_size: 128
+    sample_size: 256
+    shuffle: true
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.11
+    cli_version: 0.17.3
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1767265189
+    t:
+      1:
+      - 1
+      - 5
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 53
+      - 55
+      3:
+      - 2
+      - 13
+      - 16
+      - 23
+      - 61
+      4: 3.10.11
+      5: 0.17.3
+      8:
+      - 3
+      - 5
+      13: windows-amd64

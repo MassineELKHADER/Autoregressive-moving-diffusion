@@ -1,0 +1,88 @@
+2026-01-01 16:22:47,633 INFO    StreamThr :55312 [internal.py:wandb_internal():85] W&B internal server running at pid: 55312, started at: 2026-01-01 16:22:47.633168
+2026-01-01 16:22:47,637 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: status
+2026-01-01 16:22:47,645 INFO    WriterThread:55312 [datastore.py:open_for_write():87] open: C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\run-20260101_162247-8jr9o7wq\run-8jr9o7wq.wandb
+2026-01-01 16:22:47,649 DEBUG   SenderThread:55312 [sender.py:send():379] send: header
+2026-01-01 16:22:47,707 DEBUG   SenderThread:55312 [sender.py:send():379] send: run
+2026-01-01 16:22:52,740 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:22:57,773 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:02,815 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:07,837 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:12,888 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:17,932 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:22,954 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:27,987 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:33,013 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:38,043 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:43,082 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:48,114 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:50,847 INFO    SenderThread:55312 [retry.py:__call__():172] Retry attempt failed:
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\util\connection.py", line 95, in create_connection
+    raise err
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connection.py", line 179, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x000001F3E9EC6980>, 'Connection to api.wandb.ai timed out. (connect timeout=20)')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001F3E9EC6980>, 'Connection to api.wandb.ai timed out. (connect timeout=20)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\lib\retry.py", line 131, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\internal\internal_api.py", line 340, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\lib\gql_request.py", line 58, in execute
+    request = self.session.post(self.url, **post_args)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py", line 637, in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\adapters.py", line 688, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x000001F3E9EC6980>, 'Connection to api.wandb.ai timed out. (connect timeout=20)'))
+2026-01-01 16:23:53,155 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:23:58,198 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:24:03,235 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:24:08,272 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:24:13,323 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: keepalive
+2026-01-01 16:24:18,374 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: cancel
+2026-01-01 16:24:18,374 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: cancel
+2026-01-01 16:24:18,375 DEBUG   SenderThread:55312 [sender.py:send():388] Record cancelled: run
+2026-01-01 16:24:18,376 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: status_report
+2026-01-01 16:24:20,449 DEBUG   HandlerThread:55312 [handler.py:handle_request():158] handle_request: shutdown
+2026-01-01 16:24:20,449 INFO    HandlerThread:55312 [handler.py:finish():882] shutting down handler
+2026-01-01 16:24:21,390 INFO    WriterThread:55312 [datastore.py:close():296] close: C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\run-20260101_162247-8jr9o7wq\run-8jr9o7wq.wandb
+2026-01-01 16:24:21,390 INFO    SenderThread:55312 [sender.py:finish():1608] shutting down sender

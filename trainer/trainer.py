@@ -9,9 +9,10 @@ from tqdm.auto import tqdm
 from ema_pytorch import EMA
 from torch.optim import Adam
 from torch.nn.utils import clip_grad_norm_
+from tslearn.metrics import dtw
 
 from utils.io_utils import instantiate_from_config, get_model_parameters_info
-
+from utils.helper_metrics import smape, extreme_mae
 sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
 
 
@@ -213,12 +214,33 @@ class Trainer(object):
     @torch.no_grad()
     def evaluate_forecast(self, dataloader, shape):
         samples, reals = self.sample_forecast(dataloader, shape=shape)
-        mse = float(((samples - reals) ** 2).mean())
-        mae = float(np.abs(samples - reals).mean())
+
+        # flatten for scalar metrics
+        y_pred = samples.reshape(-1)
+        y_true = reals.reshape(-1)
+
+        mse = float(((y_pred - y_true) ** 2).mean())
+        mae = float(np.abs(y_pred - y_true).mean())
+        smape_val = float(smape(y_true, y_pred))
+        extreme_mae_val = float(extreme_mae(y_true, y_pred, q=0.9))
+
+        # DTW: average over a few sequences (NOT flattened)
+        dtw_vals = []
+        max_dtw_seq = min(20, samples.shape[0])  # keep it cheap
+        for i in range(max_dtw_seq):
+            dtw_vals.append(dtw(reals[i, :, 0], samples[i, :, 0]))
+        dtw_val = float(np.mean(dtw_vals))
 
         if self.wandb_run is not None:
-            logs = {"eval/mse": mse, "eval/mae": mae}
+            logs = {
+                "eval/mse": mse,
+                "eval/mae": mae,
+                "eval/sMAPE": smape_val,
+                "eval/extreme_mae": extreme_mae_val,
+                "eval/dtw": dtw_val,
+            }
 
+            # qualitative plot
             try:
                 import matplotlib.pyplot as plt
                 import wandb as _wandb
@@ -236,4 +258,10 @@ class Trainer(object):
 
             self.wandb_run.log(logs, step=self.step)
 
-        return {"mse": mse, "mae": mae}
+        return {
+            "mse": mse,
+            "mae": mae,
+            "sMAPE": smape_val,
+            "Extreme_MAE": extreme_mae_val,
+            "DTW": dtw_val,
+        }

@@ -1,0 +1,114 @@
+
+ARIMA per feature:   0%|                                                                                                          | 0/7 [03:28<?, ?feature/s]
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\arima_baseline.py", line 138, in <module>
+    results = run_arima_baseline_all_features(
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\arima_baseline.py", line 77, in run_arima_baseline_all_features
+    metrics = run_arima_on_feature(data[:, d], horizon)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\arima_baseline.py", line 19, in run_arima_on_feature
+    model = auto_arima(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\auto.py", line 701, in auto_arima
+    sorted_res = search.solve()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\_auto_solvers.py", line 405, in solve
+    self._do_fit((p, d, q + 1), (P, D, Q, m)):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\_auto_solvers.py", line 235, in _do_fit
+    fit, fit_time, new_ic = self._fit_arima(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\_auto_solvers.py", line 508, in _fit_candidate_model
+    fit.fit(y, X=X, **fit_params)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\arima.py", line 603, in fit
+    self._fit(y, X, **fit_args)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\arima.py", line 524, in _fit
+    fit, self.arima_res_ = _fit_wrapper()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\arima.py", line 510, in _fit_wrapper
+    fitted = arima.fit(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 703, in fit
+    mlefit = super().fit(start_params, method=method,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\base\model.py", line 566, in fit
+    xopt, retvals, optim_settings = optimizer._fit(f, score, start_params,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\base\optimizer.py", line 243, in _fit
+    xopt, retvals = func(objective, gradient, start_params, fargs, kwargs,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\base\optimizer.py", line 660, in _fit_lbfgs
+    retvals = optimize.fmin_l_bfgs_b(func, start_params, maxiter=maxiter,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_lbfgsb_py.py", line 199, in fmin_l_bfgs_b
+    res = _minimize_lbfgsb(fun, x0, args=args, jac=jac, bounds=bounds,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_lbfgsb_py.py", line 362, in _minimize_lbfgsb
+    f, g = func_and_grad(x)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_differentiable_functions.py", line 286, in fun_and_grad
+    self._update_grad()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_differentiable_functions.py", line 256, in _update_grad
+    self._update_grad_impl()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_differentiable_functions.py", line 173, in update_grad
+    self.g = approx_derivative(fun_wrapped, self.x, f0=self.f,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_numdiff.py", line 505, in approx_derivative
+    return _dense_difference(fun_wrapped, x0, f0, h,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_numdiff.py", line 576, in _dense_difference
+    df = fun(x) - f0
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_numdiff.py", line 456, in fun_wrapped
+    f = np.atleast_1d(fun(x, *args, **kwargs))
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_differentiable_functions.py", line 137, in fun_wrapped
+    fx = fun(np.copy(x), *args)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\base\model.py", line 534, in f
+    return -self.loglike(params, *args) / nobs
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 938, in loglike
+    loglike = self.ssm.loglike(complex_step=complex_step, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\tsa\statespace\kalman_filter.py", line 1001, in loglike
+    kfilter = self._filter(**kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\tsa\statespace\kalman_filter.py", line 924, in _filter
+    kfilter()
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\arima_baseline.py", line 138, in <module>
+    results = run_arima_baseline_all_features(
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\arima_baseline.py", line 77, in run_arima_baseline_all_features
+    metrics = run_arima_on_feature(data[:, d], horizon)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\arima_baseline.py", line 19, in run_arima_on_feature
+    model = auto_arima(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\auto.py", line 701, in auto_arima
+    sorted_res = search.solve()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\_auto_solvers.py", line 405, in solve
+    self._do_fit((p, d, q + 1), (P, D, Q, m)):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\_auto_solvers.py", line 235, in _do_fit
+    fit, fit_time, new_ic = self._fit_arima(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\_auto_solvers.py", line 508, in _fit_candidate_model
+    fit.fit(y, X=X, **fit_params)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\arima.py", line 603, in fit
+    self._fit(y, X, **fit_args)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\arima.py", line 524, in _fit
+    fit, self.arima_res_ = _fit_wrapper()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\pmdarima\arima\arima.py", line 510, in _fit_wrapper
+    fitted = arima.fit(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 703, in fit
+    mlefit = super().fit(start_params, method=method,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\base\model.py", line 566, in fit
+    xopt, retvals, optim_settings = optimizer._fit(f, score, start_params,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\base\optimizer.py", line 243, in _fit
+    xopt, retvals = func(objective, gradient, start_params, fargs, kwargs,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\base\optimizer.py", line 660, in _fit_lbfgs
+    retvals = optimize.fmin_l_bfgs_b(func, start_params, maxiter=maxiter,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_lbfgsb_py.py", line 199, in fmin_l_bfgs_b
+    res = _minimize_lbfgsb(fun, x0, args=args, jac=jac, bounds=bounds,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_lbfgsb_py.py", line 362, in _minimize_lbfgsb
+    f, g = func_and_grad(x)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_differentiable_functions.py", line 286, in fun_and_grad
+    self._update_grad()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_differentiable_functions.py", line 256, in _update_grad
+    self._update_grad_impl()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_differentiable_functions.py", line 173, in update_grad
+    self.g = approx_derivative(fun_wrapped, self.x, f0=self.f,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_numdiff.py", line 505, in approx_derivative
+    return _dense_difference(fun_wrapped, x0, f0, h,
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_numdiff.py", line 576, in _dense_difference
+    df = fun(x) - f0
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_numdiff.py", line 456, in fun_wrapped
+    f = np.atleast_1d(fun(x, *args, **kwargs))
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\scipy\optimize\_differentiable_functions.py", line 137, in fun_wrapped
+    fx = fun(np.copy(x), *args)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\base\model.py", line 534, in f
+    return -self.loglike(params, *args) / nobs
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 938, in loglike
+    loglike = self.ssm.loglike(complex_step=complex_step, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\tsa\statespace\kalman_filter.py", line 1001, in loglike
+    kfilter = self._filter(**kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\statsmodels\tsa\statespace\kalman_filter.py", line 924, in _filter
+    kfilter()
+KeyboardInterrupt

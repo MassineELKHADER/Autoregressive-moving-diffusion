@@ -1,0 +1,88 @@
+2026-01-01 16:22:47,621 INFO    MainThread:23196 [wandb_setup.py:_flush():76] Current SDK version is 0.17.3
+2026-01-01 16:22:47,624 INFO    MainThread:23196 [wandb_setup.py:_flush():76] Configure stats pid to 23196
+2026-01-01 16:22:47,624 INFO    MainThread:23196 [wandb_setup.py:_flush():76] Loading settings from C:\Users\pcc\.config\wandb\settings
+2026-01-01 16:22:47,624 INFO    MainThread:23196 [wandb_setup.py:_flush():76] Loading settings from C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\settings
+2026-01-01 16:22:47,624 INFO    MainThread:23196 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2026-01-01 16:22:47,624 INFO    MainThread:23196 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2026-01-01 16:22:47,627 INFO    MainThread:23196 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'arima_baseline.py', 'program_abspath': 'C:\\Users\\pcc\\Desktop\\CS_1A\\3A\\MVA\\Deep_learning\\Autoregressive_diffusion\\arima_baseline.py', 'program': 'C:\\Users\\pcc\\Desktop\\CS_1A\\3A\\MVA\\Deep_learning\\Autoregressive_diffusion\\arima_baseline.py'}
+2026-01-01 16:22:47,627 INFO    MainThread:23196 [wandb_setup.py:_flush():76] Applying login settings: {}
+2026-01-01 16:22:47,627 INFO    MainThread:23196 [wandb_init.py:_log_setup():520] Logging user logs to C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\run-20260101_162247-8jr9o7wq\logs\debug.log
+2026-01-01 16:22:47,627 INFO    MainThread:23196 [wandb_init.py:_log_setup():521] Logging internal logs to C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\run-20260101_162247-8jr9o7wq\logs\debug-internal.log
+2026-01-01 16:22:47,627 INFO    MainThread:23196 [wandb_init.py:init():560] calling init triggers
+2026-01-01 16:22:47,627 INFO    MainThread:23196 [wandb_init.py:init():567] wandb.init called with sweep_config: {}
+config: {'model': 'ARIMA', 'train_ratio': 0.7, 'horizon': 96}
+2026-01-01 16:22:47,627 INFO    MainThread:23196 [wandb_init.py:init():610] starting backend
+2026-01-01 16:22:47,627 INFO    MainThread:23196 [wandb_init.py:init():614] setting up manager
+2026-01-01 16:22:47,632 INFO    MainThread:23196 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn, using: spawn
+2026-01-01 16:22:47,637 INFO    MainThread:23196 [wandb_init.py:init():622] backend started and connected
+2026-01-01 16:22:47,645 INFO    MainThread:23196 [wandb_init.py:init():711] updated telemetry
+2026-01-01 16:22:47,707 INFO    MainThread:23196 [wandb_init.py:init():744] communicating run to backend with 90.0 second timeout
+2026-01-01 16:23:46,076 INFO    Thread-9 (wrapped_target):23196 [retry.py:__call__():172] Retry attempt failed:
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\util\connection.py", line 95, in create_connection
+    raise err
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    sock.connect(sa)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connection.py", line 179, in _new_conn
+    raise ConnectTimeoutError(
+urllib3.exceptions.ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 0x0000028DFC4CE440>, 'Connection to api.wandb.ai timed out. (connect timeout=20)')
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\urllib3\util\retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000028DFC4CE440>, 'Connection to api.wandb.ai timed out. (connect timeout=20)'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\lib\retry.py", line 131, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\internal\internal_api.py", line 340, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\lib\gql_request.py", line 58, in execute
+    request = self.session.post(self.url, **post_args)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py", line 637, in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\requests\adapters.py", line 688, in send
+    raise ConnectTimeout(e, request=request)
+requests.exceptions.ConnectTimeout: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x0000028DFC4CE440>, 'Connection to api.wandb.ai timed out. (connect timeout=20)'))
+2026-01-01 16:24:18,374 ERROR   MainThread:23196 [wandb_init.py:init():770] encountered error: Run initialization has timed out after 90.0 sec. 
+Please refer to the documentation for additional information: https://docs.wandb.ai/guides/track/tracking-faq#initstarterror-error-communicating-with-wandb-process-
+2026-01-01 16:24:18,374 ERROR   MainThread:23196 [wandb_init.py:init():1181] error in wandb.init()
+Traceback (most recent call last):
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\wandb_init.py", line 1171, in init
+    return wi.init()
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\wandb\sdk\wandb_init.py", line 776, in init
+    raise error
+wandb.errors.CommError: Run initialization has timed out after 90.0 sec. 
+Please refer to the documentation for additional information: https://docs.wandb.ai/guides/track/tracking-faq#initstarterror-error-communicating-with-wandb-process-
+2026-01-01 16:24:21,471 WARNING MsgRouterThr:23196 [router.py:message_loop():77] message_loop has been closed
