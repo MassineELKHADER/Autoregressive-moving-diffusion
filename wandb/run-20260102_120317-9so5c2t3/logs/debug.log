@@ -1,0 +1,29 @@
+2026-01-02 12:03:17,345 INFO    MainThread:48740 [wandb_setup.py:_flush():76] Current SDK version is 0.17.3
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_setup.py:_flush():76] Configure stats pid to 48740
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_setup.py:_flush():76] Loading settings from C:\Users\pcc\.config\wandb\settings
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_setup.py:_flush():76] Loading settings from C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\settings
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'main.py', 'program_abspath': 'C:\\Users\\pcc\\Desktop\\CS_1A\\3A\\MVA\\Deep_learning\\Autoregressive_diffusion\\main.py', 'program': 'C:\\Users\\pcc\\Desktop\\CS_1A\\3A\\MVA\\Deep_learning\\Autoregressive_diffusion\\main.py'}
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_setup.py:_flush():76] Applying login settings: {}
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_init.py:_log_setup():520] Logging user logs to C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\run-20260102_120317-9so5c2t3\logs\debug.log
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_init.py:_log_setup():521] Logging internal logs to C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\wandb\run-20260102_120317-9so5c2t3\logs\debug-internal.log
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_init.py:init():560] calling init triggers
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_init.py:init():567] wandb.init called with sweep_config: {}
+config: {'model': {'target': 'model.armd.ARMD', 'params': {'seq_length': 192, 'feature_size': 1, 'timesteps': 192, 'sampling_timesteps': 1, 'loss_type': 'l1', 'beta_schedule': 'cosine', 'w_grad': True}}, 'trainer': {'base_lr': 0.001, 'max_epochs': 1000, 'results_folder': './Checkpoints_m4_monthly', 'gradient_accumulate_every': 2, 'save_cycle': 500, 'ema': {'decay': 0.995, 'update_interval': 10}, 'scheduler': {'target': 'trainer.lr_sch.ReduceLROnPlateauWithWarmup', 'params': {'factor': 0.5, 'patience': 2000, 'min_lr': 1e-05, 'threshold': 0.1, 'threshold_mode': 'rel', 'warmup_lr': 0.0008, 'warmup': 500, 'verbose': False}}}, 'dataloader': {'train_dataset': {'target': 'utils.data_utils.M4_dataset.M4Dataset', 'params': {'m4_folder': './data/datasets/M4', 'freq': 'Monthly', 'period': 'train', 'window': 192, 'val_ratio': 0.1, 'min_length': 210}}, 'val_dataset': {'target': 'utils.data_utils.M4_dataset.M4Dataset', 'params': {'m4_folder': './data/datasets/M4', 'freq': 'Monthly', 'period': 'val', 'window': 192, 'val_ratio': 0.1, 'min_length': 210}}, 'test_dataset': {'target': 'utils.data_utils.M4_dataset.M4Dataset', 'params': {'m4_folder': './data/datasets/M4', 'freq': 'Monthly', 'period': 'test', 'window': 192, 'min_length': 210}}, 'batch_size': 128, 'shuffle': True}}
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_init.py:init():610] starting backend
+2026-01-02 12:03:17,350 INFO    MainThread:48740 [wandb_init.py:init():614] setting up manager
+2026-01-02 12:03:17,374 INFO    MainThread:48740 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn, using: spawn
+2026-01-02 12:03:17,388 INFO    MainThread:48740 [wandb_init.py:init():622] backend started and connected
+2026-01-02 12:03:17,410 INFO    MainThread:48740 [wandb_init.py:init():711] updated telemetry
+2026-01-02 12:03:17,553 INFO    MainThread:48740 [wandb_init.py:init():744] communicating run to backend with 90.0 second timeout
+2026-01-02 12:03:18,184 INFO    MainThread:48740 [wandb_run.py:_on_init():2402] communicating current version
+2026-01-02 12:03:18,387 INFO    MainThread:48740 [wandb_run.py:_on_init():2411] got version response upgrade_message: "wandb version 0.23.1 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2026-01-02 12:03:18,388 INFO    MainThread:48740 [wandb_init.py:init():795] starting run threads in backend
+2026-01-02 12:03:20,082 INFO    MainThread:48740 [wandb_run.py:_console_start():2380] atexit reg
+2026-01-02 12:03:20,082 INFO    MainThread:48740 [wandb_run.py:_redirect():2235] redirect: wrap_raw
+2026-01-02 12:03:20,095 INFO    MainThread:48740 [wandb_run.py:_redirect():2300] Wrapping output streams.
+2026-01-02 12:03:20,096 INFO    MainThread:48740 [wandb_run.py:_redirect():2325] Redirects installed.
+2026-01-02 12:03:20,098 INFO    MainThread:48740 [wandb_init.py:init():838] run started, returning control to user process
+2026-01-02 12:03:57,604 WARNING MsgRouterThr:48740 [router.py:message_loop():77] message_loop has been closed

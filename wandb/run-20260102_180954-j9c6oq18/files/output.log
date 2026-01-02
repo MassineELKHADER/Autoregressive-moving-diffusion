@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+loss: 2.327400: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [02:48<00:00,  5.94it/s]
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 102, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 87, in run
+    test_info = build_dataloader_cond(configs, args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\data\build_dataloader.py", line 63, in build_dataloader_cond
+    batch_size=cfg['sample_size'],
+KeyError: 'sample_size'
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 102, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 87, in run
+    test_info = build_dataloader_cond(configs, args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\data\build_dataloader.py", line 63, in build_dataloader_cond
+    batch_size=cfg['sample_size'],
+KeyError: 'sample_size'
+training complete

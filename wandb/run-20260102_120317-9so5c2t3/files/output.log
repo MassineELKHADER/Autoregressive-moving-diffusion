@@ -1,0 +1,49 @@
+  0%|                                                                                                                                                             | 0/1000 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 102, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 80, in run
+    trainer.train()
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\trainer\trainer.py", line 118, in train
+    loss = self.model(x, target=x)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\model\armd.py", line 258, in forward
+    return self._train_loss(x_start=x, t=t, **kwargs)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\model\armd.py", line 242, in _train_loss
+    model_out = self.output(x, t, training)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\model\armd.py", line 144, in output
+    model_output = self.model(x, t, training=training)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\model\linear.py", line 53, in forward
+    x_tmp = self.linear(input_.permute(0,2,1)).permute(0,2,1)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\nn\modules\linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (128x96 and 192x192)
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 102, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 80, in run
+    trainer.train()
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\trainer\trainer.py", line 118, in train
+    loss = self.model(x, target=x)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\model\armd.py", line 258, in forward
+    return self._train_loss(x_start=x, t=t, **kwargs)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\model\armd.py", line 242, in _train_loss
+    model_out = self.output(x, t, training)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\model\armd.py", line 144, in output
+    model_output = self.model(x, t, training=training)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\model\linear.py", line 53, in forward
+    x_tmp = self.linear(input_.permute(0,2,1)).permute(0,2,1)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\nn\modules\module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "C:\Users\pcc\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\nn\modules\linear.py", line 114, in forward
+    return F.linear(input, self.weight, self.bias)
+RuntimeError: mat1 and mat2 shapes cannot be multiplied (128x96 and 192x192)

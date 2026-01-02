@@ -15,8 +15,6 @@ from data.build_dataloader import build_dataloader, build_val_dataloader, build_
 
 warnings.filterwarnings("ignore")
 
-SEQ_LEN = 96
-
 
 def set_seed(seed: int):
     random.seed(seed)
@@ -82,11 +80,12 @@ def run(args):
     trainer.train()
 
     # eval / predict
+    SEQ_LEN = configs["model"]["params"]["seq_length"]
     args.mode = "predict"
     args.pred_len = SEQ_LEN
 
     test_info = build_dataloader_cond(configs, args)
-    feat_dim = test_info["dataset"].samples.shape[-1]
+    feat_dim = 1
     shape = [args.pred_len, feat_dim]
 
     # use trainer eval (logs to wandb + returns metrics)

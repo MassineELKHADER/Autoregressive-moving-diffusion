@@ -1,0 +1,65 @@
+model:
+  target: model.armd.ARMD
+  params:
+    seq_length: 96
+    feature_size: 1
+    timesteps: 96
+    sampling_timesteps: 1
+    loss_type: 'l1'
+    beta_schedule: cosine
+    w_grad: True
+
+trainer:
+  base_lr: 1.0e-3
+  max_epochs: 1000
+  results_folder: ./Checkpoints_m4_monthly
+  gradient_accumulate_every: 2
+  save_cycle: 500     
+  ema:
+    decay: 0.995
+    update_interval: 10
+  scheduler:
+    target: trainer.lr_sch.ReduceLROnPlateauWithWarmup
+    params:
+      factor: 0.5
+      patience: 2000
+      min_lr: 1.0e-5
+      threshold: 1.0e-1
+      threshold_mode: rel
+      warmup_lr: 8.0e-4
+      warmup: 500
+      verbose: False
+
+dataloader:
+  train_dataset:
+    target: utils.data_utils.M4_dataset.M4Dataset
+    params:
+      m4_folder: ./data/datasets/M4
+      freq: Monthly
+      period: train
+      window: 192
+      val_ratio: 0.1
+      min_length: 210
+
+  val_dataset:
+    target: utils.data_utils.M4_dataset.M4Dataset
+    params:
+      m4_folder: ./data/datasets/M4
+      freq: Monthly
+      period: val
+      window: 192
+      val_ratio: 0.1
+      min_length: 210
+
+  test_dataset:
+    target: utils.data_utils.M4_dataset.M4Dataset
+    params:
+      m4_folder: ./data/datasets/M4
+      freq: Monthly
+      period: test
+      window: 192
+      min_length: 210
+
+  batch_size: 128
+  sample_size: 256
+  shuffle: True

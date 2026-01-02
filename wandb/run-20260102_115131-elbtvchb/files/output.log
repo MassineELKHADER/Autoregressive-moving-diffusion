@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 103, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 74, in run
+    trainer = Trainer(
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\trainer\trainer.py", line 34, in __init__
+    self.save_cycle = config["trainer"]["save_cycle"]
+KeyError: 'save_cycle'
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 103, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 74, in run
+    trainer = Trainer(
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\trainer\trainer.py", line 34, in __init__
+    self.save_cycle = config["trainer"]["save_cycle"]
+KeyError: 'save_cycle'

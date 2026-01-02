@@ -9,11 +9,8 @@ from functools import partial
 from model.linear import Linear
 from model.model_utils import default, identity, extract
 
-
 # gaussian diffusion trainer class
-
-pred_len = 96
-
+pred_len = 96 
 def linear_beta_schedule(timesteps):
     scale = 1000 / timesteps
     beta_start = scale * 0.0001

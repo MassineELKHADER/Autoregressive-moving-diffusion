@@ -1,0 +1,61 @@
+{
+    "os": "Windows-10-10.0.26200-SP0",
+    "python": "3.10.11",
+    "heartbeatAt": "2026-01-02T10:56:26.947315",
+    "startedAt": "2026-01-02T10:56:25.890796",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--config_path",
+        "config/M4_monthly/m4_l1.yaml",
+        "--gpu",
+        "0",
+        "--use_wandb",
+        "--wandb_name",
+        "ARMD_M4_Monthly"
+    ],
+    "state": "running",
+    "program": "C:\\Users\\pcc\\Desktop\\CS_1A\\3A\\MVA\\Deep_learning\\Autoregressive_diffusion\\main.py",
+    "codePathLocal": "main.py",
+    "codePath": "main.py",
+    "git": {
+        "remote": "https://github.com/MassineELKHADER/Autoregressive-moving-diffusion.git",
+        "commit": "2182c7040411cd402edafc1656fe1560f246b28a"
+    },
+    "email": "massineelkhader@gmail.com",
+    "root": "C:/Users/pcc/Desktop/CS_1A/3A/MVA/Deep_learning/Autoregressive_diffusion",
+    "host": "DESKTOP-H2U5MKO",
+    "username": "pcc",
+    "executable": "C:\\Users\\pcc\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "cpu_count": 14,
+    "cpu_count_logical": 20,
+    "cpu_freq": {
+        "current": 2400.0,
+        "min": 0.0,
+        "max": 2400.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2400.0,
+            "min": 0.0,
+            "max": 2400.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 930.0247230529785,
+            "used": 696.4123077392578
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 4050 Laptop GPU",
+            "memory_total": 6439305216
+        }
+    ],
+    "memory": {
+        "total": 31.67876434326172
+    }
+}

@@ -1,0 +1,94 @@
+wandb_version: 1
+
+model:
+  desc: null
+  value:
+    target: model.armd.ARMD
+    params:
+      seq_length: 192
+      feature_size: 1
+      timesteps: 192
+      sampling_timesteps: 1
+      loss_type: l1
+      beta_schedule: cosine
+      w_grad: true
+trainer:
+  desc: null
+  value:
+    base_lr: 0.001
+    max_epochs: 1000
+    gradient_accumulate_every: 2
+    results_folder: ./Checkpoints_m4_monthly
+    ema:
+      decay: 0.995
+      update_interval: 10
+    scheduler:
+      target: trainer.lr_sch.ReduceLROnPlateauWithWarmup
+      params:
+        factor: 0.5
+        patience: 2000
+        min_lr: 1.0e-05
+        warmup_lr: 0.0008
+        warmup: 500
+        verbose: false
+dataloader:
+  desc: null
+  value:
+    train_dataset:
+      target: utils.data_utils.M4_dataset.M4Dataset
+      params:
+        m4_folder: ./data/datasets/M4
+        freq: Monthly
+        period: train
+        window: 192
+        val_ratio: 0.1
+        min_length: 210
+    val_dataset:
+      target: utils.data_utils.M4_dataset.M4Dataset
+      params:
+        m4_folder: ./data/datasets/M4
+        freq: Monthly
+        period: val
+        window: 192
+        val_ratio: 0.1
+        min_length: 210
+    test_dataset:
+      target: utils.data_utils.M4_dataset.M4Dataset
+      params:
+        m4_folder: ./data/datasets/M4
+        freq: Monthly
+        period: test
+        window: 192
+        min_length: 210
+    batch_size: 128
+    shuffle: true
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.11
+    cli_version: 0.17.3
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1767351091
+    t:
+      1:
+      - 1
+      - 5
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 53
+      - 55
+      3:
+      - 13
+      - 16
+      - 23
+      4: 3.10.11
+      5: 0.17.3
+      8:
+      - 3
+      - 5
+      13: windows-amd64

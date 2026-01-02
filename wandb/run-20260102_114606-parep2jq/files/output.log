@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 103, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 68, in run
+    train_info = build_dataloader(configs, args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\data\build_dataloader.py", line 23, in build_dataloader
+    loader, dataset = _build_loader(
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\data\build_dataloader.py", line 7, in _build_loader
+    dataset = instantiate_from_config(dataset_cfg)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\utils\io_utils.py", line 161, in instantiate_from_config
+    return cls(**config.get("params", dict()))
+TypeError: M4Dataset.__init__() got an unexpected keyword argument 'output_dir'
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 103, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 68, in run
+    train_info = build_dataloader(configs, args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\data\build_dataloader.py", line 23, in build_dataloader
+    loader, dataset = _build_loader(
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\data\build_dataloader.py", line 7, in _build_loader
+    dataset = instantiate_from_config(dataset_cfg)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\utils\io_utils.py", line 161, in instantiate_from_config
+    return cls(**config.get("params", dict()))
+TypeError: M4Dataset.__init__() got an unexpected keyword argument 'output_dir'

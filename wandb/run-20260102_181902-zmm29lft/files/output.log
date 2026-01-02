@@ -1,0 +1,40 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+loss: 0.018389: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▊| 999/1000 [04:20<00:00, 19.81it/s]
+
+loss: 2.327400: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1000/1000 [04:21<00:00,  3.83it/s]
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 102, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 88, in run
+    feat_dim = test_info["dataset"].samples.shape[-1]
+AttributeError: 'list' object has no attribute 'shape'
+Traceback (most recent call last):
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 102, in <module>
+    run(args)
+  File "C:\Users\pcc\Desktop\CS_1A\3A\MVA\Deep_learning\Autoregressive_diffusion\main.py", line 88, in run
+    feat_dim = test_info["dataset"].samples.shape[-1]
+AttributeError: 'list' object has no attribute 'shape'
