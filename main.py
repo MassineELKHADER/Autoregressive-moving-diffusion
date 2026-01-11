@@ -85,7 +85,7 @@ def run(args):
     args.pred_len = SEQ_LEN
 
     test_info = build_dataloader_cond(configs, args)
-    feat_dim = 1
+    feat_dim = configs["model"]["params"]["feature_size"]
     shape = [args.pred_len, feat_dim]
 
     # use trainer eval (logs to wandb + returns metrics)
